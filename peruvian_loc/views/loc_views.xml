@@ -1,0 +1,217 @@
+<odoo>
+    <data>
+
+        <!-- partner -->
+        <record model="ir.ui.view" id="view_partner_form">
+            <field name="name">res.partner.form.inherit.peruvian_loc</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="attributes">
+                    <attribute name="string">RUC</attribute>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="x_tipo_persona" string="Tipo Persona"/>
+                </xpath>
+                <xpath expr="//field[@name='x_tipo_persona']" position="after">
+                    <field name="x_grupo_pago" string="Grupo de Pago"/>
+                </xpath>
+
+                <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                    <page name="page_peruvian_loc" string="Localizaciones Peruanas">
+                        <group name="group_peruvian_loc">
+                            <group name="group_peruvian_loc_left">
+                                <field name="x_tipo_documento_identidad" string="Tipo Documento Identidad" attrs="{}" required="1"/>
+                                <field name="x_apellido_paterno" string="Apellido Paterno"
+                                       attrs="{&quot;invisible&quot;: [[&quot;x_tipo_persona&quot;,&quot;!=&quot;,&quot;01&quot;]]}"/>
+                                <field name="x_apellido_materno" string="Apellido Materno"
+                                       attrs="{&quot;invisible&quot;: [[&quot;x_tipo_persona&quot;,&quot;!=&quot;,&quot;01&quot;]]}"/>
+                                <field name="x_nombre" string="Nombre"
+                                       attrs="{&quot;invisible&quot;: [[&quot;x_tipo_persona&quot;,&quot;!=&quot;,&quot;01&quot;]]}"/>
+                                <field name="x_segundo_nombre" string="Segundo Nombre"
+                                       attrs="{&quot;invisible&quot;: [[&quot;x_tipo_persona&quot;,&quot;!=&quot;,&quot;01&quot;]]}"/>
+                                <field name="x_convenios" string="Convenios"
+                                       attrs="{&quot;invisible&quot;: [[&quot;x_tipo_persona&quot;,&quot;!=&quot;,&quot;03&quot;]]}"/>
+                                <field name="x_fecha_nacimiento" string="Fecha Nacimiento"
+                                       attrs="{&quot;invisible&quot;: [[&quot;x_tipo_persona&quot;,&quot;!=&quot;,&quot;01&quot;]]}"/>
+                            </group>
+                            <group name="group_peruvian_loc_right">
+                                <field name="x_tipo_doc_no_domiciliado" string="Tipo Doc. No Domiciliado"
+                                       attrs="{&quot;invisible&quot;: [[&quot;x_tipo_persona&quot;,&quot;!=&quot;,&quot;03&quot;]]}"/>
+                                <field name="x_tipo_dir_no_domiciliado" string="Tipo Dir. No Domiciliado"
+                                       attrs="{&quot;invisible&quot;: [[&quot;x_tipo_persona&quot;,&quot;!=&quot;,&quot;03&quot;]]}"/>
+                                <field name="x_nro_certificado_residencia" string="Nro. Certificado Residencia" widget="integer"
+                                       attrs="{}" invisible="1"/>
+                                <field name="x_vinculo_contrib_extranjero" string="Vínculo Contribuyente/Extranjero"
+                                       attrs="{&quot;invisible&quot;: [[&quot;x_tipo_persona&quot;,&quot;!=&quot;,&quot;03&quot;]]}"/>
+                                <field name="x_modalidad_servicio_no_domiciliado" string="Modalidad Servicio No Domiciliado"
+                                       attrs="{&quot;invisible&quot;: [[&quot;x_tipo_persona&quot;,&quot;!=&quot;,&quot;03&quot;]]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Supplier Invoice -->        
+        <record model="ir.ui.view" id="invoice_supplier_form">
+            <field name="name">account.invoice.supplier.form.inherit.peruvian_loc</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_name']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="invisible"></attribute>
+                    <attribute name="string">Número Factura</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='move_name']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='number']" position="after">
+                    <field name="move_name" string="Número Facturax"/>
+                </xpath>
+                <xpath expr="//field[@name='number']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+       
+                
+                <xpath expr="//field[@name='vendor_bill_purchase_id']" position="after">
+                    <field name="x_cod_detraccion" string="Código Detracción"
+					    domain="[&quot;&amp;&quot;,[&quot;tax_group_id&quot;,&quot;=&quot;,&quot;Detracciones&quot;],[&quot;type_tax_use&quot;,&quot;=&quot;,&quot;purchase&quot;]]" view-group-names="User" view-group-ids="77"/>
+                    <field name="x_total_detraccion" string="Monto Detracción" readonly="1"/>
+				</xpath>
+				<xpath expr="//field[@name='partner_bank_id']" position="after">
+					<field name="x_tipo_comprobante_pago" string="Tipo Comprobante Pago"/>
+				</xpath>
+
+                <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                    <page name="page_peruvian_loc" string="Localizaciones Peruanas">
+                        <group name="group_peruvian_loc">
+                            <group name="group_peruvian_loc_left">
+                                <field name="x_cod_dependencia_aduanera" string="Código Dependencia Aduanera"/>
+                                <field name="x_fecha_emision_detraccion" string="Fecha Emisión Detracción"/>
+                                <field name="x_nro_constancia_detraccion" string="Nro. Constancia Detracción"/>
+                            </group>
+                            <group name="group_peruvian_loc_right">
+                                <field name="x_clasificacion_bienes_y_servicios" string="Clasificación de Bienes y Servicios"/>
+                                <field name="x_nro_comprobante_doc_referencia" string="Nro. Comprobante Doc. Referencia"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="invoice_form">
+            <field name="name">account.invoice.form.inherit.peruvian_loc</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="x_tipo_comprobante_pago" string="Tipo Comprobante Pago"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- expenses -->
+        <record model="ir.ui.view" id="hr_expense_view_form">
+            <field name="name">hr.expense.form.inherit.peruvian_loc</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form[1]/sheet[1]/div[3]" position="after">
+                    <notebook name="notebook_peruvian_loc">
+                        <page name="page_peruvian_loc" string="Localizaciones Peruanas">
+                            <group name="group_peruvian_loc">
+                                <group name="group_peruvian_loc_left">
+                                    <field name="x_tipo_comprobante_pago" string="Tipo Comprobante Pago"/>
+                                    <field name="x_clasificacion_bienes_y_servicios" string="Clasificación de Bienes y Servicios"/>
+                                    <field name="x_fecha_factura" string="Fecha Factura" widget="date"/>
+                                </group>
+                                <group name="group_peruvian_loc_right">
+                                    <field name="x_proveedor" widget="res_partner_many2one"
+                                           domain="[[&quot;supplier&quot;,&quot;=&quot;,True]]" context="&quot;{'search_default_supplier':1, 'default_supplier':1, 'default_customer':0, 'show_vat': True}&quot;" string="Proveedor"/>
+                                    <field name="x_nro_constancia_detraccion" string="Nro. Constancia Detracción"/>
+                                     <field name="x_fecha_constancia_detraccion" string="Fecha Constancia Detracción"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- hr expense sheet -->        
+        <record model="ir.ui.view" id="view_hr_expense_sheet_form">
+            <field name="name">hr.expense.view.hr.expense.sheet.form.inherit.peruvian_loc</field>
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/field[@name='expense_line_ids']/tree[1]/field[@name='name']" position="after">    
+                        <field name="x_proveedor" string="Proveedor"/>
+                    </xpath>
+                    <xpath expr="//field[@name='analytic_account_id']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>                    
+                </data> 
+            </field>
+        </record>        
+        
+        <!-- purchase order -->
+        
+        <!-- añadir campos -->
+        <record model="ir.ui.view" id="purchase_order_tree">
+            <field name="name">purchase.order.tree.inherit.peruvian_loc</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="after"> 
+                    <field name="x_received_all" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- añadir filtros -->
+        <record model="ir.ui.view" id="view_purchase_order_filter">
+            <field name="name">request.quotation.select.inherit.peruvian_loc</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='to_approve']" position="after">            
+                        <filter name="not_received" string="Pedidos no recibidos" 
+                                domain="[('x_received_all', '=', '0')]"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- sale order -->
+        <record model="ir.ui.view" id="view_order_tree">
+            <field name="name">sale.order.tree.inherit.peruvian_loc</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after"> 
+                    <field name="client_order_ref"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- account payment -->
+        <record model="ir.ui.view" id="view_account_payment_form">
+            <field name="name">account.view.account.payment.form.inherit.peruvian_loc</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes"> 
+                    <attribute name="string">Razón Social</attribute>
+                </xpath>
+            </field>
+        </record>        
+        
+    </data>
+</odoo>
