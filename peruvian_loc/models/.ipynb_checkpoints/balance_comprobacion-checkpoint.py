@@ -42,6 +42,6 @@ class BalanceComprobacion(models.Model):
                          aa.code, 
                          aa.name, 
                          a.debit, 
-                         a.credit;
+                         a.credit
              )
         ''')
