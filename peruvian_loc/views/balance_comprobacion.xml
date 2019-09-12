@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <!-- Registro de Ventas -->
+        <record model="ir.ui.view" id="loc_bc_form">
+            <field name="name">BC Tree</field>
+            <field name="model">balance.comprobacion</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="account_period" string="Periodo"/>
+                    <field name="code" string="Cuenta"/>
+                    <field name="name" string="Denominación"/>
+                    <field name="debit_init" string="Deudor"/>
+                    <field name="credit_init" string="Acreedor"/>
+                    <field name="debit" string="Debe"/>
+                    <field name="credit" string="Haber"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="peruvian_loc.bc_search">
+            <field name="name">balance.comprobacion.search</field>
+            <field name="model">balance.comprobacion</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda Balance de Comprobación">
+                    <filter name="periodo_anterior" string="Periodo Anterior" 
+                            domain="[('account_period','=',(context_today()-relativedelta(months=1)).strftime('%%Y%%m'))]"/>
+                    <filter name="periodo_actual" string="Periodo Actual" 
+                            domain="[('account_period','=',context_today().strftime('%%Y%%m'))]"/>
+                </search>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="loc_action_bc">
+            <field name="name">Balance de Comprobación</field>
+            <field name="res_model">balance.comprobacion</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Balance de Comprobación" id="loc_menu_3_bc" parent="peruvian_loc.menu_1"
+                  action="loc_action_bc" sequence="30"/>
+
+    </data>
+
+</odoo>
