@@ -15,6 +15,14 @@
                     <field name="credit_init" string="Acreedor"/>
                     <field name="debit" string="Debe"/>
                     <field name="credit" string="Haber"/>
+                    <field name="debit_fin" string="Saldos Finales Deudor"/>
+                    <field name="credit_fin" string="Saldos Finales Acreedor"/>
+                    <field name="debit_bg_fin" string="Saldos Balance Activo"/>
+                    <field name="credit_bg_fin" string="Saldos Balance Pasivo/Patrimonio"/>
+                    <field name="debit_eg_fin" string="Saldos EGP Perdidas"/>
+                    <field name="credit_eg_fin" string="Saldos EGP Ganancias"/>
+                    <field name="debit_na_fin" string="Saldos Naturaleza Perdidas"/>
+                    <field name="credit_na_fin" string="Saldos Naturaleza Ganancias"/>
                 </tree>
             </field>
         </record>
